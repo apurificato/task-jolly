@@ -24,10 +24,43 @@
   </header>
 
   <main class="container">
-
+<!-- Button to trigger Modal -->
     <section class="text-center mb-5">
-      <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#formModal">Add Task</button>
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal">Add Task</button>
     </section>
+
+<!-- Modal -->
+<section class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+    <section class="modal-dialog" role="document">
+      <section class="modal-content">
+        <section class="modal-header">
+          <h5 class="modal-title" id="ModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </section>
+        <section class="modal-body">
+            <form id="taskForm">
+              <section class="mb-3">
+                <label for="taskTitle" class="form-label">Task Title</label>
+                <input type="text" class="form-control" id="taskTitle" name="taskTitle" required>
+              </section>
+              <section class="mb-3">
+                <label for="taskDueDate" class="form-label">Task Due Date</label>
+                <input type="date" class="form-control" id="taskDueDate" name="taskDueDate" required>
+              </section>
+              <section class="mb-3">
+                <label for="taskDescription" class="form-label">Task Description</label>
+                <textarea class="form-control" id="taskDescription" name="taskDescription" rows="3" required></textarea>
+              </section>
+              <section class="modal-footer">
+                <button id="submitBtn" type="submit" class="btn btn-primary">Add Task</button>
+            </section>
+            </form>
+        </section>
+    </section>
+</section>
+</section>
 
     <!-- Todo: Create a modal with a form to add tasks -->
     <section class="row swim-lanes text-center justify-content-between">
