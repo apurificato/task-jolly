@@ -12,52 +12,62 @@
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
 
   <link rel="stylesheet" href="./assets/css/style.css" />
-  <title>Task Board</title>
+  <title>Task Jolly - Task Board App</title>
 </head>
 
-<body>
+<body class="column">
+
   <header class="p-4 mb-4 text-center border-bottom border-5">
-    <h1 class="display-3">Task Board</h1>
-    <p class="lead">A simple Kanban board for task management</p>
+    <img class="site-logo" src="assets/images/task-jolly-logo.png">
+    <!-- <h1 class="display-3">Task Jolly</h1> -->
+    <p class="lead">A simple Kanban board application for task management</p>
   </header>
-  <div class="container">
-    <div class="text-center mb-5">
+
+  <main class="container">
+
+    <section class="text-center mb-5">
       <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#formModal">Add Task</button>
-    </div>
+    </section>
+
     <!-- Todo: Create a modal with a form to add tasks -->
-    <div class="row swim-lanes text-center justify-content-between">
-      <div class="col-12 col-lg-4 d-flex">
-        <div id="to-do" class="card border-light mb-3 lane flex-grow-1">
-          <div class="card-header bg-white">
+    <section class="row swim-lanes text-center justify-content-between">
+      <section class="col-12 col-lg-4 d-flex">
+        <section id="to-do" class="card border-light mb-3 lane flex-grow-1">
+          <section class="card-header bg-white">
             <h2 class="card-title mb-1">To Do</h2>
-          </div>
-          <div class="card-body bg-light">
-            <div id="todo-cards"></div>
-          </div>
-        </div>
-      </div>
-      <div class="col-12 col-lg-4 d-flex">
-        <div id="in-progress" class="card border-light mb-3 lane flex-grow-1">
-          <div class="card-header bg-white">
+          </section>
+          <section class="card-body bg-light">
+            <section id="todo-cards"></section>
+          </section>
+        </section>
+    </section>
+      <section class="col-12 col-lg-4 d-flex">
+        <section id="in-progress" class="card border-light mb-3 lane flex-grow-1">
+          <section class="card-header bg-white">
             <h2 class="card-title mb-1">In Progress</h2>
-          </div>
-          <div class="card-body bg-light">
-            <div id="in-progress-cards"></div>
-          </div>
-        </div>
-        </div>
-        <div class="col-12 col-lg-4 d-flex">
-          <div id="done" class="card border-light mb-3 lane flex-grow-1">
-            <div class="card-header bg-white">
+          </section>
+          <section class="card-body bg-light">
+            <section id="in-progress-cards"></section>
+          </section>
+        </section>
+    </section>
+        <section class="col-12 col-lg-4 d-flex">
+          <section id="done" class="card border-light mb-3 lane flex-grow-1">
+            <section class="card-header bg-white">
               <h2 class="card-title mb-1">Done</h2>
-            </div>
-            <div class="card-body bg-light">
-              <div id="done-cards"></div>
-          </div>
-          </div>
-      </div>
-    </div>
-  </div>
+            </section>
+            <section class="card-body bg-light">
+              <section id="done-cards"></div>
+            </section>
+        </section>
+        </section>
+    </section>
+</main>
+
+<footer class="row justify-between align-center">
+    <p>&copy; Copyright 2024</p>
+    <p>Developed by <a class="portfolio-link" href="https://github.com/apurificato">Anthony Purificato</a> in Rutgers Bootcamp</p>
+</footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"

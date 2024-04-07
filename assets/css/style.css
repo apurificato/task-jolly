@@ -1,6 +1,57 @@
+/* RESETS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+/* GLOBAL CLASSES */
+.row, .column {
+    display: flex;
+}
+
+footer.row>p {
+    width: auto;
+}
+
+.column {
+    flex-direction: column;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.justify-center {
+    align-items: center;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.flex-1 {
+    flex: 1;
+}
+
+
+/* CUSTOM STYLES */
 body {
     font-family: 'Open Sans', sans-serif;
     font-size: 16px;
+  }
+
+  header .site-logo {
+    max-height: 80px;
   }
   
   .swim-lanes {
@@ -14,3 +65,16 @@ body {
   .task-card:hover {
     cursor: grab;
   }
+
+footer {
+    padding: 20px 3% 10px;
+}
+
+footer p {
+    font-size: 12px;
+}
+
+.portfolio-link {
+    color: #25bd6b;
+    text-decoration: none;
+}
