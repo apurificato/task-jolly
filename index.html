@@ -26,7 +26,7 @@
   <main class="container">
 <!-- Button to trigger Modal -->
     <section class="text-center mb-5">
-        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal">Add Task</button>
+        <button class="btn" data-bs-toggle="modal" data-bs-target="#myModal">Add Task</button>
     </section>
 
 <!-- Modal -->
@@ -54,7 +54,7 @@
             <textarea class="form-control" id="taskDescription" name="taskDescription" rows="3" required></textarea>
           </div>
           <div class="modal-footer">
-            <button id="submitBtn" type="submit" class="btn btn-primary">Add Task</button>
+            <button id="submitBtn" type="submit" class="btn">Add Task</button>
           </div>
         </form>
       </div>
@@ -66,9 +66,9 @@
     <!-- Todo: Create a modal with a form to add tasks -->
     <section class="row swim-lanes text-center justify-content-between">
       <section class="col-12 col-lg-4 d-flex">
-        <section id="to-do" class="card border-light mb-3 lane flex-grow-1">
-          <section class="card-header bg-white">
-            <h2 class="card-title mb-1">To Do</h2>
+        <section id="to-do" class="card border-dark mb-3 lane flex-grow-1">
+          <section class="card-header bg-dark">
+            <h2 class="card-title mb-1 text-light">To Do</h2>
           </section>
           <section class="card-body bg-light">
             <section id="toDoCards"></section>
@@ -76,9 +76,9 @@
         </section>
     </section>
       <section class="col-12 col-lg-4 d-flex">
-        <section id="in-progress" class="card border-light mb-3 lane flex-grow-1">
-          <section class="card-header bg-white">
-            <h2 class="card-title mb-1">In Progress</h2>
+        <section id="in-progress" class="card border-dark mb-3 lane flex-grow-1">
+          <section class="card-header bg-dark">
+            <h2 class="card-title mb-1 text-light">In Progress</h2>
           </section>
           <section class="card-body bg-light">
             <section id="inProgressCards"></section>
@@ -86,9 +86,9 @@
         </section>
     </section>
         <section class="col-12 col-lg-4 d-flex">
-          <section id="done" class="card border-light mb-3 lane flex-grow-1">
-            <section class="card-header bg-white">
-              <h2 class="card-title mb-1">Done</h2>
+          <section id="done" class="card border-dark mb-3 lane flex-grow-1">
+            <section class="card-header bg-dark">
+              <h2 class="card-title mb-1 text-light">Done</h2>
             </section>
             <section class="card-body bg-light">
               <section id="doneCards"></div>

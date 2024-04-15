@@ -43,6 +43,20 @@ footer.row>p {
     flex: 1;
 }
 
+.btn {
+    border: none;
+    padding: 10px 10px;
+    background-color: #25bd6b;
+    color: #3b3b3b;
+}
+
+.btn:hover {
+    border: none;
+    padding: 10px 10px;
+    background-color: #89ffc0;
+    color: #3b3b3b;
+}
+
 
 /* CUSTOM STYLES */
 body {
@@ -77,4 +91,12 @@ footer p {
 .portfolio-link {
     color: #25bd6b;
     text-decoration: none;
+}
+
+#toDoCards {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
 }
