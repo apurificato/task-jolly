@@ -39,7 +39,7 @@ $(document).ready(function() {
 
         $.each(form, function(index, taskObj) {
             formOutput.append(`
-                <div class="task row d-flex justify-content-center align-content-center align-center border border-dark py-3 rounded-3" draggable="true" style="background-color: #ffd700; width: 75%">
+                <div class="task row d-flex justify-content-center align-content-center align-center border border-dark py-3 rounded-3" draggable="true" droppable="true" style="background-color: #ffd700; width: 75%">
                     <h3> ${taskObj.name} </h3>
                     <h5> ${taskObj.date} </h5>
                     <p> ${taskObj.description} </p>
@@ -51,19 +51,44 @@ $(document).ready(function() {
 
     function submit() {
         addTaskForm.off('submit').on('submit', getTask);
+
+
+        $(document).on('click', '.delete-btn', function() {
+            const taskContainer = $(this).closest('.parentDiv');
+            taskContainer.remove('addTaskForm');
+
+            localStorage.removeItem('addTaskForm');
+            
+        });
+
+        // setupDrop();
     }
 
+    // function setupDrop() {
+    //     $('.task, .card-body').droppable({
+    //         accept: '.task',
+    //         drop: function (event, ui) {
+    //             $(this).append(ui.draggable.css({
+    //                 top: "auto",
+    //                 left: "auto"
+    //             }));
+    //         }
+    //     });
+    // }
+
     function setupDrop() {
-        $('.task, .card-body').droppable({
-            accept: '.task',
-            drop: function (event, ui) {
-                $(this).append(ui.draggable.css({
-                    top: "auto",
-                    left: "auto"
-                }));
-            }
+        // Select a more specific parent container if possible
+        $('.droppable-container').on('drop', '.task, .card-body', function droppableEvent(event, ui) {
+            // Append the draggable element to the droppable element
+            $(this).append(ui.draggable);
+            // Optionally, reset CSS properties if necessary
+            ui.draggable.css({
+                top: "auto",
+                left: "auto"
+            });
         });
     }
+    
 
     outputTask();
     submit();
