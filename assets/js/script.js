@@ -37,7 +37,7 @@ $(document).ready(function() {
 
         form.forEach(taskObj => {
             formOutput.append(`
-                <div class="task row d-flex justify-content-center align-content-center align-center border border-dark py-3 rounded-3" draggable="true" droppable="true" style="background-color: #ffd700; width: 75%">
+                <div class="task row d-flex justify-content-center align-content-center align-center border border-dark py-3 rounded-3" draggable="true" style="background-color: #ffd700; width: 75%">
                     <h3> ${taskObj.name} </h3>
                     <h5> ${taskObj.date} </h5>
                     <p> ${taskObj.description} </p>
@@ -45,6 +45,8 @@ $(document).ready(function() {
                 </div>
             `);
         });
+
+        setupDraggable();
     }
 
     function deleteTask() {
@@ -60,11 +62,22 @@ $(document).ready(function() {
         });
     }
 
+    function setupDraggable() {
+        $('.task').draggable({
+            revert: 'invalid',
+            helper: 'clone',
+            zIndex: 100
+        });
+    }
+
     function setupDrop() {
         $('.droppable-container').droppable({
             accept: '.task',
             drop: function(event, ui) {
-                $(this).append(ui.draggable);
+                const droppedTask = ui.draggable.clone();
+                droppedTask.removeClass('ui-draggable-dragging');
+
+                $(this).append(droppedTask);
             }
         });
     }

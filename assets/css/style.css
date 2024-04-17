@@ -100,3 +100,28 @@ footer p {
     justify-content: center;
     gap: 20px;
 }
+
+#inProgressCards {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+#doneCards {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.droppable-container {
+    width: 100%;
+    min-height: 100px; /* Set a minimum height for the droppable area */
+    border: 2px dashed #ccc; /* Add a dashed border to indicate the droppable area */
+    padding: 10px; /* Add some padding inside the droppable area */
+    margin-bottom: 20px; /* Add some space below the droppable area */
+    background-color: #f9f9f9; /* Set a background color for the droppable area */
+}
