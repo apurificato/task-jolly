@@ -3,11 +3,11 @@ $(document).ready(function() {
     $(document).ready(function() {
         // Load task positions from local storage
         const savedTaskPositions = JSON.parse(localStorage.getItem('taskPositions'));
-    
+
         if (savedTaskPositions) {
             $.each(savedTaskPositions, function(columnId, taskIds) {
                 const column = $('#' + columnId);
-    
+
                 $.each(taskIds, function(index, taskId) {
                     $('#' + taskId).appendTo(column);
                 });
@@ -18,39 +18,28 @@ $(document).ready(function() {
     const addTaskForm = $('#addTaskForm');
     const formOutput = $('#toDoCards');
     const formModal = $('#myModal');
-
     function getTask(e) {
         e.preventDefault();
-
         const taskTitle = $('#taskTitle').val();
         const taskDueDate = $('#taskDueDate').val();
         const taskDescription = $('#taskDescription').val();
-
         const formArray = JSON.parse(localStorage.getItem('taskData')) || [];
-
         const formObj = {
             name: taskTitle,
             date: taskDueDate,
             description: taskDescription
         };
-
         formArray.push(formObj);
-
         localStorage.setItem('taskData', JSON.stringify(formArray));
-
         const modalInstance = bootstrap.Modal.getInstance(formModal[0]);
         modalInstance.hide();
-
         formModal.on('hidden.bs.modal', function () {
             outputTask();
         });
     }
-
     function outputTask() {
         const form = JSON.parse(localStorage.getItem('taskData')) || [];
-
         formOutput.html('');
-
         form.forEach(taskObj => {
             formOutput.append(`
                 <div class="task row d-flex justify-content-center align-content-center align-center border border-dark py-3 rounded-3" draggable="true" style="background-color: #ffd700; width: 75%">
@@ -61,23 +50,18 @@ $(document).ready(function() {
                 </div>
             `);
         });
-
         setupDraggable();
     }
-
     function deleteTask() {
         $(document).on('click', '.delete-btn', function() {
             const taskContainer = $(this).closest('.task');
             const index = taskContainer.index();
-
             let formArray = JSON.parse(localStorage.getItem('taskData')) || [];
             formArray.splice(index, 1);
             localStorage.setItem('taskData', JSON.stringify(formArray));
-
             taskContainer.remove();
         });
     }
-
     function setupDraggable() {
         $('.task').draggable({
             revert: 'invalid',
@@ -85,7 +69,6 @@ $(document).ready(function() {
             zIndex: 100
         });
     }
-
     function setupDrop() {
         $('.droppable-container').droppable({
             accept: '.task',
