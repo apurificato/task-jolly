@@ -1,128 +1,126 @@
-// Retrieve tasks and nextId from localStorage
-let taskList = JSON.parse(localStorage.getItem("tasks")) || [];
-let nextId = JSON.parse(localStorage.getItem("nextId")) || 1;
-
-// Function to generate a unique task id
-function generateTaskId() {
-    return nextId++;
-}
-
-// Function to create a task card
-function createTaskCard(task) {
-    const taskCard = `
-    <section class="task-card p-5" data-id="${task.id}">
-        <h3>${task.title}</h3>
-        <p>${task.description}</p>
-        <p>Due Date: ${task.dueDate}</p>
-        <button class="delete-btn">Delete</button>
-    </section>
-    `;
-    return taskCard;
-}
-
-// Function to render the task list and make cards draggable
-function renderTaskList() {
-    // const todoColumn = document.getElementById('to-do');
-    // todoColumn.innerHTML = ''; // Clear existing tasks
-
-    taskList.forEach(function (task) {
-        const taskCard = createTaskCard(task);
-        // todoColumn.insertAdjacentHTML('beforeend', taskCard);
-        $('#to-do').append(taskCard);
+$(document).ready(function() {
+    // Place the document ready function here
+    $(document).ready(function() {
+        // Load task positions from local storage
+        const savedTaskPositions = JSON.parse(localStorage.getItem('taskPositions'));
+    
+        if (savedTaskPositions) {
+            $.each(savedTaskPositions, function(columnId, taskIds) {
+                const column = $('#' + columnId);
+    
+                $.each(taskIds, function(index, taskId) {
+                    $('#' + taskId).appendTo(column);
+                });
+            });
+        }
     });
 
-    // Make cards draggable
-    $('.task-card').draggable({
-        containment: '.container',
-        // revert: 'invalid',
-        revert: true,
-        cursor: 'move',
-        stack: '.task-card'
+    const addTaskForm = $('#addTaskForm');
+    const formOutput = $('#toDoCards');
+    const formModal = $('#myModal');
+
+    function getTask(e) {
+        e.preventDefault();
+
+        const taskTitle = $('#taskTitle').val();
+        const taskDueDate = $('#taskDueDate').val();
+        const taskDescription = $('#taskDescription').val();
+
+        const formArray = JSON.parse(localStorage.getItem('taskData')) || [];
+
+        const formObj = {
+            name: taskTitle,
+            date: taskDueDate,
+            description: taskDescription
+        };
+
+        formArray.push(formObj);
+
+        localStorage.setItem('taskData', JSON.stringify(formArray));
+
+        const modalInstance = bootstrap.Modal.getInstance(formModal[0]);
+        modalInstance.hide();
+
+        formModal.on('hidden.bs.modal', function () {
+            outputTask();
+        });
+    }
+
+    function outputTask() {
+        const form = JSON.parse(localStorage.getItem('taskData')) || [];
+
+        formOutput.html('');
+
+        form.forEach(taskObj => {
+            formOutput.append(`
+                <div class="task row d-flex justify-content-center align-content-center align-center border border-dark py-3 rounded-3" draggable="true" style="background-color: #ffd700; width: 75%">
+                    <h3> ${taskObj.name} </h3>
+                    <h5> ${taskObj.date} </h5>
+                    <p> ${taskObj.description} </p>
+                    <button class="delete-btn" style="background-color: black; color: white; width: 50%;">Delete Task</button>
+                </div>
+            `);
+        });
+
+        setupDraggable();
+    }
+
+    function deleteTask() {
+        $(document).on('click', '.delete-btn', function() {
+            const taskContainer = $(this).closest('.task');
+            const index = taskContainer.index();
+
+            let formArray = JSON.parse(localStorage.getItem('taskData')) || [];
+            formArray.splice(index, 1);
+            localStorage.setItem('taskData', JSON.stringify(formArray));
+
+            taskContainer.remove();
+        });
+    }
+
+    function setupDraggable() {
+        $('.task').draggable({
+            revert: 'invalid',
+            helper: 'clone',
+            zIndex: 100
+        });
+    }
+
+    function setupDrop() {
+        $('.droppable-container').droppable({
+            accept: '.task',
+            drop: function(event, ui) {
+                const droppedTask = ui.draggable.clone();
+                droppedTask.removeClass('ui-draggable-dragging');
+
+                // Remove the dropped task from the original column
+                ui.draggable.remove();
+                // Append the dropped task to the new column
+                $(this).append(droppedTask);
+                // Save the updated task positions to local storage
+                saveTaskPositions();
+            }
+        });
+    }
+    // Place the saveTaskPositions() function here
+    function saveTaskPositions() {
+    const taskPositions = {};
+
+    $('.column').each(function(index, element) {
+        const columnId = $(element).attr('id');
+        const taskIds = $(element).find('.task').map(function() {
+            return $(this).attr('id');
+        }).get();
+
+        taskPositions[columnId] = taskIds;
     });
+
+    // Save the task positions to local storage
+    localStorage.setItem('taskPositions', JSON.stringify(taskPositions));
 }
 
-// Function to handle adding a new task
-function handleAddTask(event) {
-    event.preventDefault();
-
-    const taskTitle = document.getElementById('taskTitle').value;
-    const taskDueDate = document.getElementById('taskDueDate').value;
-    const taskDescription = document.getElementById('taskDescription').value;
-
-    const newTask = {
-        id: generateTaskId(),
-        title: taskTitle,
-        dueDate: taskDueDate,
-        description: taskDescription
-    };
-
-    taskList.push(newTask);
-    // saveTasksToLocalStorage();
-    // renderTaskList();
-    // Update localStorage
-    localStorage.setItem("tasks", JSON.stringify(taskList))
-    localStorage.setItem("nextId", JSON.stringify(nextId))
-
-    // Render the updated task list by creating the task card
-    const taskCard = createTaskCard(newTask)
-    $("#to-do").append(taskCard) 
-
-    // Clear the forms
-    $("#Tasktitle").val("")
-    $("#taskDescription").val("")
-    $("#taskDueDate").val("")
-
-    // Reset form
-    document.getElementById('taskForm').reset();
-
-    // Close modal
-    const modal = new bootstrap.Modal(document.getElementById('myModal'));
-    modal.hide();
-}
-
-// Function to handle deleting a task
-function handleDeleteTask(event) {
-    const taskId = parseInt(event.target.parentNode.dataset.id);
-    taskList = taskList.filter(task => task.id !== taskId);
-    saveTasksToLocalStorage();
-    renderTaskList();
-}
-
-// Function to handle dropping a task into a new status lane
-function handleDrop(event, ui) {
-    const taskId = parseInt(ui.draggable[0].dataset.id);
-    const task = taskList.find(task => task.id === taskId);
-    const newStatus = event.target.dataset.status;
-
-    // Update task status
-    task.status = newStatus;
-    saveTasksToLocalStorage();
-}
-
-// Function to save tasks to local storage
-function saveTasksToLocalStorage() {
-    localStorage.setItem("tasks", JSON.stringify(taskList));
-    localStorage.setItem("nextId", nextId);
-}
-
-// When the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
-$(document).ready(function () {
-
-    $('#submitBtn').click(function () {
-        console.log("submit button clicked")
-        $('formModal').modal("hide")
-    })
-
-    renderTaskList();
-
-    $('#taskDueDate').datepicker();
-
-    $('#addTaskBtn').click(handleAddTask);
-
-    $(document).on('click', '.delete-btn', handleDeleteTask);
-
-    $('.lane').droppable({
-        accept: '.task-card',
-        drop: handleDrop
-    });
+    addTaskForm.on('submit', getTask);
+    deleteTask();
+    setupDrop();
+    outputTask(); // Initial task output
 });
