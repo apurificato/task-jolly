@@ -1,4 +1,20 @@
 $(document).ready(function() {
+    // Place the document ready function here
+    $(document).ready(function() {
+        // Load task positions from local storage
+        const savedTaskPositions = JSON.parse(localStorage.getItem('taskPositions'));
+    
+        if (savedTaskPositions) {
+            $.each(savedTaskPositions, function(columnId, taskIds) {
+                const column = $('#' + columnId);
+    
+                $.each(taskIds, function(index, taskId) {
+                    $('#' + taskId).appendTo(column);
+                });
+            });
+        }
+    });
+
     const addTaskForm = $('#addTaskForm');
     const formOutput = $('#toDoCards');
     const formModal = $('#myModal');
@@ -77,10 +93,31 @@ $(document).ready(function() {
                 const droppedTask = ui.draggable.clone();
                 droppedTask.removeClass('ui-draggable-dragging');
 
+                // Remove the dropped task from the original column
+                ui.draggable.remove();
+                // Append the dropped task to the new column
                 $(this).append(droppedTask);
+                // Save the updated task positions to local storage
+                saveTaskPositions();
             }
         });
     }
+    // Place the saveTaskPositions() function here
+    function saveTaskPositions() {
+    const taskPositions = {};
+
+    $('.column').each(function(index, element) {
+        const columnId = $(element).attr('id');
+        const taskIds = $(element).find('.task').map(function() {
+            return $(this).attr('id');
+        }).get();
+
+        taskPositions[columnId] = taskIds;
+    });
+
+    // Save the task positions to local storage
+    localStorage.setItem('taskPositions', JSON.stringify(taskPositions));
+}
 
     addTaskForm.on('submit', getTask);
     deleteTask();
