@@ -15,7 +15,7 @@ Task Jolly is a task management webapp built in the form of a Kanban board with 
 # Tools and Technologies Used in This Project
 - HTML, CSS, and Javascript coding languages
 - VS Code platform used to code and build pages
-- Bootstrap CSS Framework - Utilized for styling the website (getbootstrap.com)
+- Bootstrap CSS Framework - Utilized for CSS styling of the website (getbootstrap.com)
 - Web API's:
     - Day JS (dayjs.org)
 - Github (website hosted and deployed on Github servers)
@@ -31,8 +31,10 @@ Task Jolly also enables users to click and drag the task cards in any one of the
 
 
 # Credits
-Bootstrap CSS Framework
-Rutgers Coding Bootcamp: Provided resources and support for this project.
+- Rutgers Coding Bootcamp provided resources and support for this project
+- Original start code was taken from: https://github.com/coding-boot-camp/musical-happiness
+- OpenAI ChatGPT utilized for general coding assistance and aid upon encountering problems with JavaScript code
+
 
 # License
 Website is available for public use, hosted on Github servers, utilizing an MIT License - see the LICENSE file for details.
